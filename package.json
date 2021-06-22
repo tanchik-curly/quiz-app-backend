@@ -5,15 +5,27 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "nodemon --exec babel-node app.js"
   },
   "author": "tanchik_curly",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
-    "express": "^4.17.1"
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.6.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.6.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7"
+    "@babel/cli": "^7.14.5",
+    "@babel/core": "^7.14.6",
+    "@babel/node": "^7.14.5",
+    "@babel/preset-env": "^7.14.5",
+    "node-env-run": "^4.0.2",
+    "nodemon": "^2.0.7",
+    "sequelize-cli": "^6.2.0"
   }
 }
