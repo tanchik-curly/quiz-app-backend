@@ -24,7 +24,11 @@ router.post("/auth/login", async (req, res) => {
       else {
         const id = user.dataValues.id;
         const token = genereteToken(id);
-        res.json({ auth: true, jwt_token: token });
+        res.json({
+          auth: true,
+          jwt_token: token,
+          position: user.dataValues.position,
+        });
       }
     })
     .catch((err) => {
@@ -50,7 +54,7 @@ router.post("/auth/register", async (req, res) => {
 
     const id = user.dataValues.id;
     const token = genereteToken(id);
-    res.json({ auth: true, jwt_token: token });
+    res.json({ auth: true, jwt_token: token, position: req.body.position });
   } catch {
     res.json({
       auth: false,
@@ -128,26 +132,24 @@ router.post("/options", validateToken, async (req, res) => {
             trueFlag = true;
             response.push({ id: dbOption.dataValues.id, option: true });
 
-            //UNCOMMENT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
-
-            // const review = models.QuizReview.create({
-            //   optionId: dbOption.dataValues.id,
-            //   answer: true,
-            //   questionId: qId,
-            //   quizId: req.body.quizId,
-            //   userId: req.userId,
-            // });
+            const review = models.QuizReview.create({
+              optionId: dbOption.dataValues.id,
+              answer: true,
+              questionId: qId,
+              quizId: req.body.quizId,
+              userId: req.userId,
+            });
           } else {
             falseFlag = true;
             response.push({ id: dbOption.dataValues.id, option: false });
 
-            // const review = models.QuizReview.create({
-            //   optionId: dbOption.dataValues.id,
-            //   answer: false,
-            //   questionId: qId,
-            //   quizId: req.body.quizId,
-            //   userId: req.userId,
-            // });
+            const review = models.QuizReview.create({
+              optionId: dbOption.dataValues.id,
+              answer: false,
+              questionId: qId,
+              quizId: req.body.quizId,
+              userId: req.userId,
+            });
           }
         });
         if (trueFlag && falseFlag === false)
